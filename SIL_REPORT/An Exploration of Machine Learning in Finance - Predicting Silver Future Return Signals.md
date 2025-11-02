@@ -326,19 +326,31 @@ And vice versa, the goal here is to benefit from  the periods where the model as
 ### 3.4 Recap graphs : 
 
 **Options strategy :** 
+
 <img src="attachment/79b76b98416a5d05c28880e5e351ec2d.png" />
+
 *Wealth Progression by Model, 2004, starting capital of 1€*
+
 <img src="attachment/7ff0971dd46fd6c25936d16fb146b458.png" />
+
 Wealth Progression by Model, 2024, starting capital of 1€*
+
 <img src="attachment/4829a8dd660673c7a98e8b6beb39faae.png" />
+
 *Wealth Progression by Model, 2025, starting capital of 1€*
 
  **Buy & Hold:** 
+ 
 <img src="attachment/98bc8743b881ad6629afce2592c15c4d.png" />
+
 *Wealth Progression by Model, 2004, starting capital of 1€*
+
 <img src="attachment/62720e8d4db4ae12737d4f7551c49fef.png" />
+
 *Wealth Progression by Model, 2020, starting capital of 1€*
+
 <img src="attachment/6edc19f9d3dbea21861a7811192b2c6d.png" />
+
 *Wealth Progression by Model, 2025, starting capital of 1€*
 
 ### 3.5 Comparing model stability too noise  
@@ -347,9 +359,13 @@ Model stability is particularly import as we can Thus we will follow the approac
 $$\text{Noisy Feature}_i = \text{Feature}_i + N(0,\text{Noise Level} \times sd(Feature))$$
 
 We will run this $n$ times per noise levels, compute the mean of the proportion that didn't flip. Thus we know what model, is more stable in different scenario. Nevertheless the ensemble model is more stable. Below are the result graphs :
+
 <img src="attachment/a07f4711f1a2a5f25dfaa58c4cf38874.png" />
+
 <img src="attachment/9c1940ad680894e3829dbe1ff422ecbe.png" />
+
 <img src="attachment/2d44d6a35d8d98ef3a4f74195c192d93.png" />
+
 *Model Robustness too added Noise All test Periods*
 
 Our Ensemble Model is more robust too noise, as such its a more robust prediction and trading system in our opinion , even if it does exhibit slightly higher drawdowns and worse performance then the CNN in 25. 
