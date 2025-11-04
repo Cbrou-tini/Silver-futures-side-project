@@ -122,6 +122,7 @@ We can see we retain similar distributions but with less extreme values for cris
 | Futures Silver | < 2.2e-16                   | < 2.2e-16                       | <0.01                       |
 | Futures Gold   | < 2.2e-16                   | < 2.2e-16                       | <0.01                       |
 | Futures Copper | < 2.2e-16                   | < 2.2e-16                       | <0.01                       |
+
 Thus we can infer that our data is not normally distributed but it is definitely stationary. Then we look a smoothed and un-smoothed correlations between our features : 
 <img src="attachment/06cfbb4a5907aa038debcbc2c9526c5b.png" />
 *Correlations of log returns*
@@ -176,6 +177,7 @@ As state previously we test our model on 8 60 day samples of out of sample 2020 
 | o5-KNN           | 66           | 60.24908;71.75092 | 1.068038e-05     | -3.488358e-06  2.484912e-05 |
 | oK-Xboost        | 77.71429     | 71.18087;84.24770 | 1.094115e-05     | -1.410767e-05  3.598998e-05 |
 | o6-Ens-stacking  | 79.71429     | 75.25598;84.17259 | 1.754023e-06     | -1.555411e-06  5.063456e-06 |
+
 Therefore we can conclude that tree based models appear too outperform FNN and KNN approaches, furthermore as detailed in section 6, the most important features where Gold Spot and Futures , Silver futures, and Copper futures. The importance spot does lend credence to the Cost too carry model but focusing on the contracts underlying environment (commodities here) rather then just spot. It also underlines the interconnectedness in commodities markets. 
 #### 2.2 **On Bootstrapped training data :** 
 
