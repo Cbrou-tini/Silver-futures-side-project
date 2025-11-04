@@ -49,7 +49,7 @@ Gold as a "flight to safety" metal  and inflation counter would give interesting
 We also believe that according to theory the interest should be a component of futures pricing:  
 Silver futures are be in theory, according to the cost to carry model, Bradford Cornell and Kenneth R. French 1983 (3), written as:
 
-$$F = S \cdot e^{iT} + C \cdot (1 - e^{-i(T-t)})$$
+$F = S \cdot e^{iT} + C \cdot (1 - e^{-i(T-t)})$
 $F$ is the futures price.
 $S$ is the current spot price of the underlying asset.
 $i$ is the risk-free interest rate.
@@ -58,11 +58,10 @@ $C$ is the storage cost per period.
 
 Therefore in continuous return defined as:
 
-$$ r_{ct} = log(P_{t}) - log(P_{t-1}) $$
+$r_{ct} = log(P_{t}) - log(P_{t-1})$
 we would have: 
 
-$$rF_c = log(S_{t+1}\cdot e^{iT} + C\cdot(1-e^{i(T-t+1)})) 
-- log(S_{t}\cdot e^{iT} + C\cdot(1-e^{i(T-t)}))=> rF_c(i,C) $$
+$rF_c = log(S_{t+1}\cdot e^{iT} + C\cdot(1-e^{i(T-t+1)})) - log(S_{t}\cdot e^{iT} + C\cdot(1-e^{i(T-t)}))=> rF_c(i,C)$
 Since all other factors are constants the the return is a function of the interest rate and carry costs in this model. 
 Therefore the spot Price of silver should be a component . And as such, as such Futures and the interest rate should hold good information on sentiment, our model may be able to "intuit" the the cost of storage. 
 *Note if this theory holds then gold & copper futures should be compounded by previous characteristics described, also a good source of information for our models.*
@@ -71,7 +70,7 @@ Therefore the spot Price of silver should be a component . And as such, as such 
 Sometimes econometric time series lose their stationary properties properties, *Engle R.F. 1982*, known as ARCH, this was then generalised by Tim Bollerslev 1985 (4), and that volatility clusters tend to create auto-correlated returns in these areas, this concept is know as GARCH. We decide to take inspiration from him by implementing a mesure of volatility in our model, we use rolling $\sigma$ to input this, we found better results by adding the VIX as a general input of market volatility.
 
 We would have an unknown function that looks something like this:
-$$ rF_t = f(( r_{Spot},r_{Futures},\sigma_{Market},\sigma_{Futures},\dot{\rho}_{Futures})_{t-1}) $$
+$rF_t = f(( r_{Spot},r_{Futures},\sigma_{Market},\sigma_{Futures},\dot{\rho}_{Futures})_{t-1})$
 Where $r$ returns, $\sigma$ risk or standard dev, $\dot{\rho}$ momentum.
 Where precise functions are unknown and potential non linear thus prompting our use of machine learning to approximate it :
 $$ DATA -> Training -> f <=> Model $$And we could compute and grade direction by : 
@@ -158,7 +157,7 @@ Investigate model explainability using the DALEX package to see how our model us
 
 ###### - KNN (K nearest neighbour )
 
-###### - Ensemble stacking model combining our successful models using a XGboost meta learner. 
+###### - Ensemble stacking model combining our successful models using a XGboost Meta learner. 
 
 We also use a linear model that serves as a benchmark, it isn't necessarily a optimised AR linear model but is using the same data to our base models. We are aware this isn't perfect, but we did check for heterodasticity.
 ## 2. **Results** 
