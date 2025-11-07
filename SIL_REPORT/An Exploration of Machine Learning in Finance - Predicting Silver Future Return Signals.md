@@ -73,7 +73,7 @@ We would have an unknown function that looks something like this:
 $rF_t = f(( r_{Spot},r_{Futures},\sigma_{Market},\sigma_{Futures},\dot{\rho}_{Futures})_{t-1})$
 Where $r$ returns, $\sigma$ risk or standard dev, $\dot{\rho}$ momentum.
 Where precise functions are unknown and potential non linear thus prompting our use of machine learning to approximate it :
-$$ DATA -> Training -> f <=> Model $$And we could compute and grade direction by : 
+$DATA -> Training -> f <=> Model$ And we could compute and grade direction by : 
 
 $\text{If}$ $r_{Fc} < 0$ and  $r_{Fce} < 0$  or if $r_{Fc} > 0$ and $r_{Fce} > 0$, $\text{then}$ $w = 1$,
 $\text{else}$,  $w = 0$ .
@@ -234,17 +234,17 @@ As well as 1.5 the margin requirements of mini silver futures to ensure our back
 - **Buy and hold** 
 
 The trading strategy is the following we buy or sell the contract near close based on the models prediction with current input, and sell the previous days contract. We implemented slippage as we sadly where unable to find intraday data over these periods. The algorithmic implementation of the strategy is as follow : 
-$$Position_i = 
+$Position_i = 
 \begin{cases}
 (1) \times (0.98 - slippage_i) & \text{if } signal_i > 0 \\
 (-1) \times (0.98 - slippage_i) & \text{if } signal_i < 0 \\
 0 & \text{otherwise}
-\end{cases}$$
-$$slippage_i = 
+\end{cases}$
+$slippage_i = 
 \begin{cases}
 base\_slippage \times vol\_multiplier \times \frac{\sigma_i}{vol\_threshold} & \text{if } \sigma_i > vol\_threshold \\
 base\_slippage & \text{otherwise}
-\end{cases}$$
+\end{cases}$
 Where $\sigma_i$​ is the 5-day rolling standard deviation of returns at time $i+lags$, vol threshold is the 80th percentile of the rolling volatility, base slippage 1%, vol multiplier at 3 (h). We use log returns of settlement prices to calculate all trading returns.
 
 - **Selling delta hedged options**
@@ -270,6 +270,7 @@ And vice versa, the goal here is to benefit from  the periods where the model as
 | o5-KNN           | 0.15%      | 1.3% | 39%          | 0.10         | -8.1%        | 0.32 |
 | oK-Xboost        | 0.24%      | 1.3% | 13%          | 0.17         | -5.5%        | 0.33 |
 | o6-Ens-stacking  | 0.23%      | 1.6% | 16%          | 0.14         | -8.1%        | 0.40 |
+
 *Derivatives strategy above*
 
 | Model            | Return Avg | Sd   | Total return | Sharpe Ratio | Max drawdown | Beta |
@@ -280,6 +281,7 @@ And vice versa, the goal here is to benefit from  the periods where the model as
 | o5-KNN           | 0.16%      | 1.5% | 44%          | 0.10         | -5.8%        | 0.43 |
 | oK-Xboost        | 0.01%      | 1.6% | 0.6%         | 0.00         | -10.8%       | 0.42 |
 | o6-Ens-stacking  | 0.02%      | 1.5% | 5%           | 0.01         | -10.8%       | 0.33 |
+
 *Buy & hold*
 ### 3.2 On period 2020 : 
 
@@ -291,6 +293,7 @@ And vice versa, the goal here is to benefit from  the periods where the model as
 | o5-KNN           | 0.19%      | 1.8% | 52%          | 0.10         | -7.9%        | 0.2  |
 | oK-Xboost        | 0.24%      | 1.3% | 63%          | 0.17         | -2.2%        | 0.2  |
 | o6-Ens-stacking  | 0.25%      | 1.5% | 67%          | 0.16         | -7.5%        | 0.23 |
+
 *Derivatives strategy*
 
 | Model            | Return Avg | Sd   | Total return | Sharpe Ratio | Max drawdown | Beta |
@@ -301,6 +304,7 @@ And vice versa, the goal here is to benefit from  the periods where the model as
 | o5-KNN           | 0.18%      | 1.7% | 10%          | 0.10         | -7.4%        | 0.43 |
 | oK-Xboost        | 0.07%      | 2.5% | 2%           | 0.00         | -11.5%       | 0.42 |
 | o6-Ens-stacking  | 0.07%      | 2.3% | 3%           | 0.01         | -10.6%       | 0.33 |
+
 *Buy & hold*
 ### 3.3 On period 2025 : 
 
@@ -312,6 +316,7 @@ And vice versa, the goal here is to benefit from  the periods where the model as
 | o5-KNN           | 0.09%      | 1.3% | 9.9%         | 0.00         | -7.0%        | 0.23 |
 | oK-Xboost        | 0.07%      | 1.3% | 7.6%         | 0.00         | -7.0%        | 0.22 |
 | o6-Ens-stacking  | 0.16%      | 1.2% | 16%          | 0.00         | -2.9%        | 0.22 |
+
 *Derivatives strategy*
 
 | Model            | Return Avg | Sd   | Total return | Sharpe Ratio | Max drawdown | Beta |
@@ -322,6 +327,7 @@ And vice versa, the goal here is to benefit from  the periods where the model as
 | o5-KNN           | 0.19%      | 1.3% | 19%          | 0.00         | -3.9%        | 0.26 |
 | oK-Xboost        | 0.23%      | 1.3% | 23.%         | 0.00         | -3.9%        | 0.31 |
 | o6-Ens-stacking  | 0.00%      | 1.2% | 9%           | 0.00         | -4.2%        | 0.28 |
+
 *Buy & hold*
 *The universally negative Sharpe ratios in 2025 reflect the extreme market volatility during Trump's election and early policy announcements. But serves as a good stress test*
 ### 3.4 Recap graphs : 
@@ -357,7 +363,7 @@ Wealth Progression by Model, 2024, starting capital of 1€*
 ### 3.5 Comparing model stability too noise  
 
 Model stability is particularly import as we can Thus we will follow the approach of adding *noise* too our trading test series and check what proportion of trades / signals "stay stable" in such a conditions.  Here we take inspiration from Neelanjana Pal, Diego Manzanas Lopez, and Taylor T Johnson (13) and use a Multifeature All-instance approach, we will scale this noise based on the standard deviation of each input feature, such that: 
-$$\text{Noisy Feature}_i = \text{Feature}_i + N(0,\text{Noise Level} \times sd(Feature))$$
+$\text{Noisy Feature}_i = \text{Feature}_i + N(0,\text{Noise Level} \times sd(Feature))$
 
 We will run this $n$ times per noise levels, compute the mean of the proportion that didn't flip. Thus we know what model, is more stable in different scenario. Nevertheless the ensemble model is more stable. Below are the result graphs :
 
