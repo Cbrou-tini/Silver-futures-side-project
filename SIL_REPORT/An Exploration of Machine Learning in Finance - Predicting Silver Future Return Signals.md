@@ -185,7 +185,6 @@ As state previously we test our model on 8 60 day samples of out of sample 2020 
 
 | Model            | Winrate mean | IC Winrate        | MSE mean         | IC MSE                      |
 | ---------------- | ------------ | ----------------- | ---------------- | --------------------------- |
-| Linear           |              |                   |                  |                             |
 | o1-Random Forest | 79.71429     | 74.88750;84.54107 | 2.791313e-06     | -3.038547e-06; 8.621173e-06 |
 | o2-FFNN          | 75.71429     | 68.67666;82.75192 | 2.056414e-05<br> | 5.037272e-06;3.609101e-05   |
 | o3-CNN           | 74.57143     | 69.05179;80.09106 | 1.506942e-05     | 4.166908e-06;2.597193e-05   |
@@ -236,7 +235,7 @@ Densities appear to match. Therefore we test our models on the data, we get the 
 | oK-Xboost        | 49.94152     |
 | o6-Ens-stacking  | 50.99415     |
 
-Model performance collapses, so either Alvi's & co method doesn't work for financial data, or our models react poorly too different market scenarios, but seeing our models trading rather good performance on the particularly difficult market conditions from the 3rd of November to the 20th of April we would like think the foremost is more likely, since our models exhibit robust performance on validation and trading data in diverging and complex market conditions. to further our point we check the differences between the errors of our models on synthetic versus validation data and find p values for the tested models under 5% with the lowest being ($\text{statistic} = 0.380, p = 7.478x10^{-12})$ for the FNN and the highest ($\text{statistic} = 0.149, p = 0.035)$ for the CNN, demonstrating that while the synthetic data preserves certain univariate properties, it fails to capture the multivariate relationships that our models leverage for prediction.
+Model performance collapses, so either Alvi's & co method doesn't work for financial data, or our models react poorly too different market scenarios, but seeing our models trading rather good performance on the particularly difficult market conditions from the 3rd of November to the 20th of April we would like think the foremost is more likely, since our models exhibit robust performance on validation and trading data in diverging and complex market conditions. to further our point we check the differences between the errors of our models on synthetic versus validation data and find p values for the tested models under 5% with the lowest being ($\text{statistic} = 0.380, p = 7.478x10^{-12}$) for the FNN and the highest ($\text{statistic} = 0.149, p = 0.035$) for the CNN, demonstrating that while the synthetic data preserves certain univariate properties, it fails to capture the multivariate relationships that our models leverage for prediction.
 
 ## 3. **Implementation of a trading scenario** 
 
@@ -252,7 +251,8 @@ As well as 1.5 the margin requirements of mini silver futures to ensure our back
 - **Buy and hold** 
 
 The trading strategy is the following we buy or sell the contract near close based on the models prediction with current input, and sell the previous days contract. We implemented slippage as we sadly where unable to find intraday data over these periods. The algorithmic implementation of the strategy is as follow : 
-$Position_i = 
+
+$$ Position_i = 
 \begin{cases}
 (1) \times (0.98 - slippage_i) & \text{if } signal_i > 0 \\
 (-1) \times (0.98 - slippage_i) & \text{if } signal_i < 0 \\
@@ -262,7 +262,8 @@ $slippage_i =
 \begin{cases}
 base\_slippage \times vol\_multiplier \times \frac{\sigma_i}{vol\_threshold} & \text{if } \sigma_i > vol\_threshold \\
 base\_slippage & \text{otherwise}
-\end{cases}$
+\end{cases}$$
+
 Where $\sigma_i$​ is the 5-day rolling standard deviation of returns at time $i+lags$, vol threshold is the 80th percentile of the rolling volatility, base slippage 1%, vol multiplier at 3 (h). We use log returns of settlement prices to calculate all trading returns.
 
 - **Selling delta hedged options**
