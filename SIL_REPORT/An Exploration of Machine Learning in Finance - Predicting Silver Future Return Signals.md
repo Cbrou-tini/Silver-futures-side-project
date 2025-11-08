@@ -49,19 +49,25 @@ Gold as a "flight to safety" metal  and inflation counter would give interesting
 We also believe that according to theory the interest should be a component of futures pricing:  
 Silver futures are be in theory, according to the cost to carry model, Bradford Cornell and Kenneth R. French 1983 (3), written as:
 
-$F = S \cdot e^{iT} + C \cdot (1 - e^{-i(T-t)})$
-$F$ is the futures price.
-$S$ is the current spot price of the underlying asset.
-$i$ is the risk-free interest rate.
-$T$ is the time to maturity of the futures contract.
-$C$ is the storage cost per period.
+$$F = S \cdot e^{iT} + C \cdot (1 - e^{-i(T-t)})$$
+
+Where:
+- $F$ is the futures price
+- $S$ is the current spot price of the underlying asset
+- $i$ is the risk-free interest rate
+- $T$ is the time to maturity of the futures contract
+- $C$ is the storage cost per period
 
 Therefore in continuous return defined as:
 
-$r_{ct} = log(P_{t}) - log(P_{t-1})$
-we would have: 
+$$r_{ct} = \log(P_{t}) - \log(P_{t-1})$$
 
-$rF_c = log(S_{t+1}\cdot e^{iT} + C\cdot(1-e^{i(T-t+1)})) - log(S_{t}\cdot e^{iT} + C\cdot(1-e^{i(T-t)}))=> rF_c(i,C)$
+we would have:
+
+$$rF_c = \log(S_{t+1}\cdot e^{iT} + C\cdot(1-e^{i(T-t+1)})) - \log(S_{t}\cdot e^{iT} + C\cdot(1-e^{i(T-t)}))$$
+
+Therefore: $rF_c(i,C)$
+
 Since all other factors are constants the the return is a function of the interest rate and carry costs in this model. 
 Therefore the spot Price of silver should be a component . And as such, as such Futures and the interest rate should hold good information on sentiment, our model may be able to "intuit" the the cost of storage. 
 *Note if this theory holds then gold & copper futures should be compounded by previous characteristics described, also a good source of information for our models.*
@@ -70,14 +76,25 @@ Therefore the spot Price of silver should be a component . And as such, as such 
 Sometimes econometric time series lose their stationary properties properties, *Engle R.F. 1982*, known as ARCH, this was then generalised by Tim Bollerslev 1985 (4), and that volatility clusters tend to create auto-correlated returns in these areas, this concept is know as GARCH. We decide to take inspiration from him by implementing a mesure of volatility in our model, we use rolling $\sigma$ to input this, we found better results by adding the VIX as a general input of market volatility.
 
 We would have an unknown function that looks something like this:
-$rF_t = f(( r_{Spot},r_{Futures},\sigma_{Market},\sigma_{Futures},\dot{\rho}_{Futures})_{t-1})$
-Where $r$ returns, $\sigma$ risk or standard dev, $\dot{\rho}$ momentum.
+
+$$rF_t = f((r_{Spot}, r_{Futures}, \sigma_{Market}, \sigma_{Futures}, \dot{\rho}_{Futures})_{t-1})$$
+
+Where:
+- $r$ = returns
+- $\sigma$ = risk or standard deviation
+- $\dot{\rho}$ = momentum
+
 Where precise functions are unknown and potential non linear thus prompting our use of machine learning to approximate it :
 $DATA -> Training -> f <=> Model$ And we could compute and grade direction by : 
 
-$\text{If}$ $r_{Fc} < 0$ and  $r_{Fce} < 0$  or if $r_{Fc} > 0$ and $r_{Fce} > 0$, $\text{then}$ $w = 1$,
-$\text{else}$,  $w = 0$ .
-$\text{winrate} = \frac{1}{n} \times \sum w \times 100$
+$$
+w = \begin{cases}
+1 & \text{if } (r_{Fc} < 0 \text{ and } r_{Fce} < 0) \text{ or } (r_{Fc} > 0 \text{ and } r_{Fce} > 0) \\
+0 & \text{otherwise}
+\end{cases}
+$$
+
+$$\text{winrate} = \frac{1}{n} \times \sum w \times 100$$
 
 **To resume :** 
 *Model Inputs :* 
@@ -206,6 +223,7 @@ As we can see volatility exhibits similar patters. We then test too see if the s
 |            | Spot cop | Spot sil | Spot gold | Gold fut | copper fut | ust   | vix  |
 | ---------- | -------- | -------- | --------- | -------- | ---------- | ----- | ---- |
 | Silver fut | 0.15     | 0.03     | 0.04      | 0.03     | 0.03       | -0.23 | 0.15 |
+
 *Difference between real and synthetic data correlations*
 
 Densities appear to match. Therefore we test our models on the data, we get the following performance after splitting the data in 19 100-ish day subsets for more robust ICs and performance appraisal :
@@ -283,6 +301,7 @@ And vice versa, the goal here is to benefit from  the periods where the model as
 | o6-Ens-stacking  | 0.02%      | 1.5% | 5%           | 0.01         | -10.8%       | 0.33 |
 
 *Buy & hold*
+
 ### 3.2 On period 2020 : 
 
 | Model            | Return Avg | Sd   | Total return | Sharpe Ratio | Max drawdown | Beta |
@@ -306,6 +325,7 @@ And vice versa, the goal here is to benefit from  the periods where the model as
 | o6-Ens-stacking  | 0.07%      | 2.3% | 3%           | 0.01         | -10.6%       | 0.33 |
 
 *Buy & hold*
+
 ### 3.3 On period 2025 : 
 
 | Model            | Return Avg | Sd   | Total return | Sharpe Ratio | Max drawdown | Beta |
@@ -329,6 +349,7 @@ And vice versa, the goal here is to benefit from  the periods where the model as
 | o6-Ens-stacking  | 0.00%      | 1.2% | 9%           | 0.00         | -4.2%        | 0.28 |
 
 *Buy & hold*
+
 *The universally negative Sharpe ratios in 2025 reflect the extreme market volatility during Trump's election and early policy announcements. But serves as a good stress test*
 ### 3.4 Recap graphs : 
 
