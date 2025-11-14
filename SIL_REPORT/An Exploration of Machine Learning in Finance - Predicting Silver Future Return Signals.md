@@ -414,7 +414,7 @@ Secondly tree-based models (Random Forest, XGBoost) and our ensemble stacked app
 *Below you can find a detailed analysis of our models structure performance, errors, and explainability.*
 ## 6. **Exploring our models** 
 
-*All of our models take either matrixes or arrays of the 10 days lagged variables excluding the un-lagged time series of each variable and our target variable (silver futures). ($e$) All Neural network based models also where mostly agnostic to batch sizes so we standardised it to 64.*
+*All of our models take either matrixes or arrays of the 10 days lagged variables excluding the un-lagged time series of each variable and our target variable (silver futures). (e) All Neural network based models also where mostly agnostic to batch sizes so we standardised it to 64.*
 ### Neural Networks  & Co Approach 
 ### 6.1 **FFNN** 
 
